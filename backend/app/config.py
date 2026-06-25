@@ -16,7 +16,11 @@ class Settings(BaseSettings):
     allowed_extensions: list[str] = ["pdf", "docx"]
     spacy_model: str = "en_core_web_sm"
     sentence_transformer_model: str = "all-MiniLM-L6-v2"
-    cors_origins: list[str] = ["http://localhost:3000", "http://127.0.0.1:3000"]
+    cors_origins_str: str = "http://localhost:3000,http://127.0.0.1:3000"
+
+    @property
+    def cors_origins(self) -> list[str]:
+        return [o.strip() for o in self.cors_origins_str.split(",")]
 
     # Scoring weights
     keyword_weight: float = 0.35

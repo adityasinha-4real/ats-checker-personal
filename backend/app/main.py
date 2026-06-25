@@ -5,13 +5,13 @@ from fastapi.staticfiles import StaticFiles
 from loguru import logger
 import sys
 
-from app.config import settings
+from app.config import settings, DATA_DIR
 from app.models.database import init_db
 from app.routers import resumes, job_descriptions, analysis, rankings, exports, intelligence, optimizer, variants, market, applications
 
 logger.remove()
 logger.add(sys.stderr, format="{time:HH:mm:ss} | {level:<8} | {message}", level="INFO")
-logger.add("data/app.log", rotation="10 MB", retention="7 days", level="DEBUG")
+logger.add(str(DATA_DIR / "app.log"), rotation="10 MB", retention="7 days", level="DEBUG")
 
 
 @asynccontextmanager
